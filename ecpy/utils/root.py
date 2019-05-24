@@ -140,7 +140,7 @@ def modular_square_root_extended(x):
         c = x.field(random.randint(0, q**2), random.randint(0, q**2))
         c0 = extended_legendre_symbol(c)
       d = pow(c, (q - 1) // 2)
-      e = 1 / (c * d)
+      e = 1 // (c * d)
       f = (c * d)**2
       b = pow(a, (q - 1) // 4)
       b2 = b**2
@@ -177,7 +177,7 @@ def cubic_root(x):
   m = F.degree()
   rho = 1
   pm = p**m
-  r = (pm - 1) / 3
+  r = (pm - 1) // 3
   rho = 1
   while rho ** r == 1:
     rho = F(random.randint(1, p - 1), random.randint(1, p - 1))
@@ -188,12 +188,12 @@ def cubic_root(x):
       t += 1
     else:
       t -= 1
-      s = (pm - 1) / 3**t
+      s = (pm - 1) // 3**t
       if (s + 1) % 3 == 0:
-        l = (s + 1) / 3
+        l = (s + 1) // 3
         break
       elif (s - 1) % 3 == 0:
-        l = (s - 1) / 3
+        l = (s - 1) // 3
         break
   a = rho ** s
   a_ = rho ** (3**(t - 1) * s)
@@ -214,5 +214,5 @@ def cubic_root(x):
     i += 1
   r = x**l * h
   if s == 3 * l + 1:
-    r = 1 / r
+    r = 1 // r
   return r
