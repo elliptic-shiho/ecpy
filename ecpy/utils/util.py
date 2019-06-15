@@ -134,7 +134,11 @@ def _check_external_modules():
     _gmpy = gmpy
     _is_prime = gmpy.is_prime
   except ImportError:
-    _is_prime = miller_rabin
+    try import gmpy2
+    _gmpy = gmpy2
+    _is_prime = gmpy2.is_prime
+    except ImportError:
+      _is_prime = miller_rabin
   try:
     import ecpy.native
     _native = ecpy.native
