@@ -1,16 +1,24 @@
-from .library import *
+from .library import lib, NativeProxy, to_char_ptr
+from ctypes import c_void_p
 from .FF import FF, FF_elem
 from .EF import EF, EF_elem
 import ast
 
 
 class EC(NativeProxy):
+    _EC_FF_create = lib.EC_FF_create
+    _EC_FF_create.restype = c_void_p
+
+    _EC_EF_create = lib.EC_EF_create
+    _EC_EF_create.restype = c_void_p
+
     def __init__(s, base, a, b):
         s.base = base
         s.a = a
         s.b = b
+
         if isinstance(base, FF):
-            ptr = lib.EC_FF_create(to_char_ptr(str(a)), to_char_ptr(str(b)), base.ptr)
+            ptr = EC._EC_FF_create(to_char_ptr(str(a)), to_char_ptr(str(b)), base.ptr)
             tostring_func = lib.EC_FF_to_string
             del_func = lib.EC_FF_delete
             s.add_func = lib.EC_FF_add
@@ -18,7 +26,7 @@ class EC(NativeProxy):
             s.mul_func = lib.EC_FF_mul
             s.type = 1
         elif isinstance(base, EF):
-            ptr = lib.EC_EF_create(
+            ptr = EC._EC_EF_create(
                 to_char_ptr(str(a)),
                 to_char_ptr(str(b)),
                 base.ptr,
@@ -33,19 +41,15 @@ class EC(NativeProxy):
         NativeProxy.__init__(s, ptr, tostring_func, del_func)
 
     def add(s, ret, a, b):
-        assert (
-            isinstance(ret, EC_elem)
-            and isinstance(a, EC_elem)
-            and isinstance(b, EC_elem)
-        )
+        assert isinstance(ret, EC_elem)
+        assert isinstance(a, EC_elem)
+        assert isinstance(b, EC_elem)
         s.add_func(s.ptr, ret.ptr, a.ptr, b.ptr)
 
     def sub(s, ret, a, b):
-        assert (
-            isinstance(ret, EC_elem)
-            and isinstance(a, EC_elem)
-            and isinstance(b, EC_elem)
-        )
+        assert isinstance(ret, EC_elem)
+        assert isinstance(a, EC_elem)
+        assert isinstance(b, EC_elem)
         s.sub_func(s.ptr, ret.ptr, a.ptr, b.ptr)
 
     def mul(s, ret, a, b):
@@ -60,6 +64,12 @@ class EC(NativeProxy):
 
 
 class EC_elem(NativeProxy):
+    _EC_elem_FF_create = lib.EC_elem_FF_create
+    _EC_elem_FF_create.restype = c_void_p
+
+    _EC_elem_EF_create = lib.EC_elem_EF_create
+    _EC_elem_EF_create.restype = c_void_p
+
     def __init__(s, curve, x, y, z=1):
         from six import integer_types
 
@@ -89,11 +99,11 @@ class EC_elem(NativeProxy):
             z = conv(z)
 
         if s.curve.type == 1:
-            ptr = lib.EC_elem_FF_create(x.ptr, y.ptr, z.ptr)
+            ptr = EC_elem._EC_elem_FF_create(x.ptr, y.ptr, z.ptr)
             tostring_func = lib.EC_elem_FF_to_string
             del_func = lib.EC_elem_FF_delete
         elif s.curve.type == 2:
-            ptr = lib.EC_elem_EF_create(x.ptr, y.ptr, z.ptr)
+            ptr = EC_elem._EC_elem_EF_create(x.ptr, y.ptr, z.ptr)
             tostring_func = lib.EC_elem_EF_to_string
             del_func = lib.EC_elem_EF_delete
 
