@@ -26,15 +26,15 @@ Elliptic-Curve Cryptography Library (Implemented by Python)
 ```
 
 ## Require modules:
-* six (for Python 3.x compatibility)
+* six
 
-if installed following modules, `ecpy` uses that.
+If installed following modules, `ecpy` uses that.
 
-* `gmpy`
+* `gmpy2`
 * `primefac` or [primefac-fork](https://github.com/elliptic-shiho/primefac-fork/)
 
 # Setup with Native modules
-`ecpy` has native module. If you want to speed-up ecpy, you can use that.
+`ecpy` has a native module. If you want to speed-up ecpy, you can use that.
 
 ```
 > cd ecpy/cpp
@@ -42,7 +42,7 @@ if installed following modules, `ecpy` uses that.
 > sudo make install
 ```
 
-description is here: [cpp/README.md](cpp/README.md)
+The description is here: [cpp/README.md](cpp/README.md)
 
 # Speed
 See `bench_pairing.py` .
@@ -88,5 +88,5 @@ sys     0m0.012s
 Cybozu Labs Youth (5th, 6th) - http://labs.cybozu.co.jp/youth.html
 
 # License
-this software released under MIT License. Please see /LICENSE.
+This software released under MIT License. Please see /LICENSE.
 

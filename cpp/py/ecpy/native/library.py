@@ -9,7 +9,7 @@ def to_char_ptr(string):
 
 class NativeProxy(object):
     def __init__(s, object_ptr, tostring_func, del_func):
-        s.ptr = object_ptr
+        s.ptr = c_void_p(object_ptr)
         s.tostring_func = tostring_func
         s.del_func = del_func
 
