@@ -31,3 +31,6 @@
 *.sage.py
 !.gitkeep
 .python-version
+
+**/build/*
+**/*.egg-info/**
