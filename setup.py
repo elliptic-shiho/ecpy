@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name="ecpy",
-    version="1.1",
+    version="1.1.1",
     description="A Elliptic-Curve Library",
     author="@elliptic_shiho",
     author_email="shiho.elliptic@gmail.com",

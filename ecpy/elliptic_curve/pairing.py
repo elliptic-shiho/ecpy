@@ -140,7 +140,7 @@ def gen_supersingular_ec(bits=70):
     from .EllipticCurve import EllipticCurve
 
     def _next_prime(n):
-        from ecpy.util import is_prime
+        from ecpy import is_prime
 
         """
     return next prime of n
@@ -159,7 +159,7 @@ def gen_supersingular_ec(bits=70):
         next_prime = _next_prime
 
     def gen_prime():
-        from ecpy.util import is_prime
+        from ecpy import is_prime
         from random import randint
 
         while True:

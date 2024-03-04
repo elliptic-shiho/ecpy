@@ -375,6 +375,13 @@ def test():
     assert_eq(b * b, -1, "b^2")
     assert_eq(b * b + a, 0, "b^2 + a")
 
+    from ecpy import is_prime
+
+    assert_eq(is_prime(10007), True, "10007 is prime")
+    assert_eq(is_prime(2), True, "2 is prime")
+    assert_eq(is_prime(4), False, "4 is not prime")
+    assert_eq(is_prime(100160063), False, "10007 * 10009 is not prime")
+
     print(
         "[+] %d Test(s) finished. %d Test(s) success, %d Test(s) fail."
         % (ac_count + wa_count, ac_count, wa_count)
